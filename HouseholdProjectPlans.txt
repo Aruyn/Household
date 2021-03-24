@@ -1,0 +1,15 @@
+Home
+
+Storage
+    - Web Client to view and register
+        Tech: Vue
+    - Web Api to serve the Client
+        Tech: Asp.net core (.NET 5)
+        Endpoint: Get items in storage
+        Endpoint: Add/update item in storage
+    - Database
+        Tech: SqlLight (EntityFramework?)
+        Table: Items
+            Id, Description
+        Table: Storage
+            Id, Items.Id, AddedDate, ExpiredDate, IsFreezed
