@@ -43,7 +43,7 @@ namespace StorageWebApi.Controllers
                         ItemId = arg.ItemTypeId,
                         AddedDate =  arg.AddedDate,
                         ExpiredDate = arg.ExpiredDate,
-                        IsFreezed = arg.IsFreezed
+                        Location = arg.Location
                     }
                 );
             }

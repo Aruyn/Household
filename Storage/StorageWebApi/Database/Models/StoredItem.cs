@@ -1,4 +1,5 @@
 using System;
+using StorageWebApi.DomainModels;
 
 namespace StorageWebApi.Database.Models
 {

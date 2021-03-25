@@ -1,4 +1,5 @@
 using System;
+using StorageWebApi.DomainModels;
 
 namespace StorageWebApi.DtoModels
 {
@@ -7,6 +8,6 @@ namespace StorageWebApi.DtoModels
         public Guid ItemTypeId { get; set; }
         public DateTime AddedDate { get; set; }
         public DateTime ExpiredDate { get; set; }
-        public bool IsFreezed { get; set; }
+        public Location Location { get; set; }
     }
 }
