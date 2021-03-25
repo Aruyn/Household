@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/StorageWebApi.csproj",
+                "${workspaceFolder}/src/StorageWebApi.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/StorageWebApi.csproj",
+                "${workspaceFolder}/src/StorageWebApi.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +32,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/StorageWebApi.csproj",
+                "${workspaceFolder}/src/StorageWebApi.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -47,12 +47,12 @@
             "dockerBuild": {
                 "tag": "storagewebapi:dev",
                 "target": "base",
-                "dockerfile": "${workspaceFolder}/Dockerfile",
-                "context": "${workspaceFolder}",
+                "dockerfile": "${workspaceFolder}/Docker/Dockerfile",
+                "context": "${workspaceFolder}/src",
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/StorageWebApi.csproj"
+                "appProject": "${workspaceFolder}/src/StorageWebApi.csproj"
             }
         },
         {
@@ -63,12 +63,12 @@
             ],
             "dockerBuild": {
                 "tag": "storagewebapi:latest",
-                "dockerfile": "${workspaceFolder}/Dockerfile",
-                "context": "${workspaceFolder}",
+                "dockerfile": "${workspaceFolder}/Docker/Dockerfile",
+                "context": "${workspaceFolder}/src",
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/StorageWebApi.csproj"
+                "appProject": "${workspaceFolder}/src/StorageWebApi.csproj"
             }
         },
         {
@@ -79,7 +79,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/StorageWebApi.csproj",
+                "appProject": "${workspaceFolder}/src/StorageWebApi.csproj",
                 "enableDebugging": true
             }
         },
@@ -91,7 +91,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/StorageWebApi.csproj"
+                "appProject": "${workspaceFolder}/src/StorageWebApi.csproj"
             }
         }
     ]
