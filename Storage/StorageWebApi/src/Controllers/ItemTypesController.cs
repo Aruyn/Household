@@ -26,15 +26,18 @@ namespace StorageWebApi.Controllers
         }
 
         [HttpPost]
-        public async Task Post(string description)
+        public async Task Post([FromBody] string description)
         {
-            await db.ItemTypes.AddAsync(
-                    new ItemType()
-                    {
-                        Id = Guid.NewGuid(),
-                        Description = description
-                    }
-                );
+            if(db.ItemTypes.Count(i => i.Description == description) == 0){
+                await db.ItemTypes.AddAsync(
+                        new ItemType()
+                        {
+                            Id = Guid.NewGuid(),
+                            Description = description
+                        }
+                    );
+                await  db.SaveChangesAsync();
+            }
         }
     }
 }
