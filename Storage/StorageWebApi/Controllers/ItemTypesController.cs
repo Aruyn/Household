@@ -12,28 +12,29 @@ namespace StorageWebApi.Controllers
     [Route("[controller]")]
     public class ItemTypesController : ControllerBase
     {
+        private readonly StorageContext db;
+
+        public ItemTypesController(StorageContext db)
+        {
+            this.db = db;
+        }
+
         [HttpGet]
         public IEnumerable<ItemType> Get()
         {
-            using (var db = new StorageContext())
-            {
-                return db.ItemTypes;
-            }
+            return db.ItemTypes;
         }
 
         [HttpPost]
         public async Task Post(string description)
         {
-            using (var db = new StorageContext())
-            {
-                await db.ItemTypes.AddAsync(
+            await db.ItemTypes.AddAsync(
                     new ItemType()
                     {
                         Id = Guid.NewGuid(),
                         Description = description
                     }
                 );
-            }
         }
     }
 }

@@ -14,29 +14,31 @@ namespace StorageWebApi.Controllers
     [Route("[controller]")]
     public class StorageController : ControllerBase
     {
+        private readonly StorageContext db;
+
+        public StorageController(StorageContext db)
+    {
+            this.db = db;
+        }
+
         [HttpGet]
         public IEnumerable<Item> Get()
         {
-            using (var db = new StorageContext())
-            {
-                return db.StoredItems
-                    .GroupBy(i => i.ItemId)
-                    .Select(grp =>
-                        new Item
-                        {
-                            Description = db.ItemTypes.First( i => i.Id == grp.Key).Description,
-                            Amount = grp.Count(),
-                            ExpiredDates = grp.Select(i => i.ExpiredDate).ToArray()
-                        });  
-            }
+            return db.StoredItems
+                .GroupBy(i => i.ItemId)
+                .Select(grp =>
+                    new Item
+                    {
+                        Description = db.ItemTypes.First( i => i.Id == grp.Key).Description,
+                        Amount = grp.Count(),
+                        ExpiredDates = grp.Select(i => i.ExpiredDate).ToArray()
+                    });  
         }
 
         [HttpPost]
         public async Task Post(AddItemArg arg)
-        {
-            using (var db = new StorageContext())
-            {
-                await db.StoredItems.AddAsync(
+        { 
+            await db.StoredItems.AddAsync(
                     new StoredItem()
                     {
                         Id = Guid.NewGuid(),
@@ -46,7 +48,6 @@ namespace StorageWebApi.Controllers
                         Location = arg.Location
                     }
                 );
-            }
         }
     }
 }
