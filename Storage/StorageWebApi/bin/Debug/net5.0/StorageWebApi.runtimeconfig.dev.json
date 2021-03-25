@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\sindr\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\sindr\\.nuget\\packages"
-    ]
-  }
-}
