@@ -8,6 +8,6 @@ namespace StorageWebApi.Database.Models
         public Guid ItemId {get; set;}
         public DateTime AddedDate {get; set;}
         public DateTime ExpiredDate {get; set;}
-        public bool IsFreezed {get; set;}
+        public Location Location { get; set; }
     }
 }

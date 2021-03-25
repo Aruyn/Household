@@ -1,6 +1,6 @@
 using System;
 
-namespace StorageWebApi
+namespace StorageWebApi.DtoModels
 {
     public class AddItemArg
     {

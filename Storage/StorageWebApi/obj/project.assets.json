@@ -1119,24 +1119,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\SNA\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\sindr\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\SNA\\Desktop\\HomeProject\\Storage\\StorageWebApi\\StorageWebApi.csproj",
+      "projectUniqueName": "F:\\Repos\\Household\\Storage\\StorageWebApi\\StorageWebApi.csproj",
       "projectName": "StorageWebApi",
-      "projectPath": "C:\\Users\\SNA\\Desktop\\HomeProject\\Storage\\StorageWebApi\\StorageWebApi.csproj",
-      "packagesPath": "C:\\Users\\SNA\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\SNA\\Desktop\\HomeProject\\Storage\\StorageWebApi\\obj\\",
+      "projectPath": "F:\\Repos\\Household\\Storage\\StorageWebApi\\StorageWebApi.csproj",
+      "packagesPath": "C:\\Users\\sindr\\.nuget\\packages\\",
+      "outputPath": "F:\\Repos\\Household\\Storage\\StorageWebApi\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\SNA\\Desktop\\HomeProject\\Storage\\StorageWebApi\\NuGet.Config",
-        "C:\\Users\\SNA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "F:\\Repos\\Household\\Storage\\StorageWebApi\\NuGet.Config",
+        "C:\\Users\\sindr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
