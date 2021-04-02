@@ -25,6 +25,7 @@ namespace StorageWebApi.Controllers
         public IEnumerable<Item> Get()
         {
             return db.StoredItems
+            .ToArray()
                 .GroupBy(i => i.ItemId)
                 .Select(grp =>
                     new Item
@@ -48,6 +49,7 @@ namespace StorageWebApi.Controllers
                         Location = arg.Location
                     }
                 );
+            await db.SaveChangesAsync();
         }
     }
 }
