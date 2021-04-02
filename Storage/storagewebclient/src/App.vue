@@ -1,7 +1,9 @@
 <template>
 <div class="container">
-  <Header/>
-  <AddItem @add-item="addItem"/>
+  <Header @toggle-add-item="toggleAddItem" :showAddItem="showAddItem"/>
+  <div v-show="showAddItem">
+    <AddItem @add-item="addItem"/>
+  </div>  
   <Items 
     @use-item="useItem"
     :items="items"/>
@@ -22,38 +24,42 @@ export default {
   },
   data() {
     return {
-      items: []
+      items: [],
+      showAddItem: false
     }
   },
   methods: {
+    toggleAddItem() {
+      this.showAddItem = !this.showAddItem
+    },
     addItem(item) {
       this.items = [...this.items, item]
+      //Send add item to StorageWebapi
     },
     useItem(id){
-      console.log(id)
       this.items = this.items.map((item) => 
       item.id === id 
       ? {...item, used: true} 
       : item
       )
+      //Send item used request to StorageWebApi
+    },
+    async fetchItems() {
+      const res =  await fetch('http://desktop-aaroeen:80/storage', {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+      const data = await res.json()
+
+      return data
     }
   },
-  created() {
-    this.items = [
-      {
-        id: 1,
-        description: "Havregryn",
-        expirydate: "01.01.2022",
-        used: false
-      },
-      {
-        id: 2,
-        description: "Melk",
-        expirydate: "13.04.2021",
-        used: false
-      } 
-    ]
-  }
+  async created() {
+    this.items = await this.fetchItems()
+  },
 }
 </script>
 
@@ -68,10 +74,8 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 .container {
-  max-width: 500px;
-  margin: 30px auto;
+  margin: 10px auto;
   overflow: auto;
-  min-height: 300px;
   border: 1px solid steelblue;
   padding: 30px;
   border-radius: 5px;

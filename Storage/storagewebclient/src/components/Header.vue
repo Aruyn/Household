@@ -3,7 +3,9 @@
         <h1>
             Husholdningsartikler
         </h1>
-        <Button title="Legg til"/>
+        <Button                 
+            @clicked="$emit('toggle-add-item')"
+            :title="showAddItem ? 'Avbryt' : 'Legg til'" />
     </header>
 </template>
 
@@ -12,6 +14,10 @@ import Button from './Button'
 
 export default{
        name: 'Header',
+       props: {
+           title: String,
+           showAddItem: Boolean
+       },
        components:{
            Button
        }
