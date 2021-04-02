@@ -7,6 +7,9 @@ services:
     image: storagewebapi
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./Docker/Dockerfile
+    volumes: 
+      - storagedbvolume:/app/dbfile
     ports:
-      - 80
+      - "80:80"
+      - "443:443"
