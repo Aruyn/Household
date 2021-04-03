@@ -22,6 +22,12 @@ namespace StorageWebApi
         {
 
             services.AddControllers();
+            services.AddCors(options =>
+             options.AddPolicy("Policy", config => {
+                 config.AllowAnyOrigin();
+                 config.AllowAnyHeader();
+                 config.AllowAnyMethod();
+             }));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "StorageWebApi", Version = "v1" });
@@ -42,7 +48,7 @@ namespace StorageWebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors("Policy");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
