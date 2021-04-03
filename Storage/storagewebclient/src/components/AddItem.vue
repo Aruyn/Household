@@ -1,13 +1,13 @@
 <template>
   <form @submit="onSubmit" class="add-form">
     <div class="form-control">
-      <label>Artikkel</label>
+      <label>Beskrivelse</label>
       <input type="text" v-model="description" name="description" placeholder="Legg til artikkel" />
     </div>
     <div class="form-control">
       <label>Best før</label>
       <input
-        type="text"
+        type="date"
         v-model="expirydate"
         name="expirydate"
         placeholder="Legg til best før dato"
