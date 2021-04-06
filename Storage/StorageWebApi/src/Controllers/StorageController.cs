@@ -39,11 +39,22 @@ namespace StorageWebApi.Controllers
         [HttpPost]
         public async Task Post(AddItemArg arg)
         { 
+            var newItemTypeId = Guid.NewGuid();
+            if(arg.ItemTypeId == default){
+                 await db.ItemTypes.AddAsync(
+                        new ItemType()
+                        {
+                            Id = newItemTypeId,
+                            Description = arg.Description
+                        }
+                    );
+            }
+
             await db.StoredItems.AddAsync(
                     new StoredItem()
                     {
                         Id = Guid.NewGuid(),
-                        ItemId = arg.ItemTypeId,
+                        ItemId = arg.ItemTypeId == default ? newItemTypeId : arg.ItemTypeId,
                         AddedDate =  arg.AddedDate,
                         ExpiredDate = arg.ExpiredDate,
                         Location = arg.Location
