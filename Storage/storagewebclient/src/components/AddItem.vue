@@ -1,8 +1,8 @@
 <template>
   <form @submit="onSubmit" class="add-form">
     <div class="form-control">
-      <label>Beskrivelse</label>
-      <input type="text" v-model="description" name="description" placeholder="Legg til artikkel" />
+      <label>Beskrivelse</label>   
+      <ItemInputAutoComplete :items="itemTypes" v-model="description"/>
     </div>
     <div class="form-control">
       <label>Best før</label>
@@ -18,13 +18,21 @@
 </template>
 
 <script>
+import ItemInputAutoComplete from './ItemInputAutocomplete'
+
 export default {
   name: 'AddItem',
+  props: {
+    itemTypes : Array
+  },
   data() {
     return {
       description: '',
       expirydate: '',
     }
+  },
+  components:{
+    ItemInputAutoComplete
   },
   methods: {
     onSubmit(e) {
@@ -52,6 +60,7 @@ export default {
 
 <style scoped>
 .add-form {
+  margin-top: 20px;
   margin-bottom: 40px;
 }
 .form-control {

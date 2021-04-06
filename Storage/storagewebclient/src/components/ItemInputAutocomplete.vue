@@ -1,9 +1,11 @@
-<template>
-    <div class="backgroundCarpet" @click="modal = false"/>
-    <input type="text" class="inputField" autocomplete="off" v-model="inputText"/>
-    <div v-if="filteredItems && modal" class="filteredItems">
-        <ul>
-            <li v-for="item in filteredItems" :key="item.description" class="filteredItem"/>
+<template>    
+    <div class="autoCompleteContainer">     
+        <input type="text" class="inputField" autocomplete="off" v-model="inputText" @focus="modal = true" @blur="modal = false"/>
+        <div v-if="filteredItems && modal" class="filteredItems">
+        <div v-for="item in filteredItems.slice(0,5)" :key="item.description" class="filteredItem">
+            <li class="itemSuggestion" @mousedown="setItem(item)">{{item.description}}</li>
+        </div>
+        </div>
     </div>
 </template>
 
@@ -19,12 +21,12 @@ export default {
             filteredItems: [],
         }
     },
-    mounted() {
-        this.fil
+    mounted() {       
+        this.filterItems();
     },
     methods: {
         filterItems() {
-            if(this.inputText.length = 0){
+            if(this.inputText.length == 0){
                 this.filteredItems = this.items;
             }
             
@@ -36,20 +38,44 @@ export default {
             this.inputText = item.description;
             this.modal = false;
         }
+    },
+    watch: {
+        inputText() {
+            this.filterItems();
+        }
     }
 }
 </script>
 
 <style>
-.backgroundCarpet{
-    position: absolute;
-    z-index: 0;
-    inset: 0;
+.autoCompleteContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .filteredItems{
     z-index: 10;
+    list-style-type: none;
+    border: 103,71,54;
+    border: 1px solid rgb(103,71,54);
+    width: 100%;
 }
 .filteredItem{
     cursor: pointer;
+    width: 100%;
 }
+.inputField{
+    width: 100%;
+    border: 1px solid black;
+    padding: 5px;
+}
+.itemSuggestion{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid black;
+    background: rgb(51, 50, 50);
+    text-align: center;
+    color: white;
+}
+
 </style>

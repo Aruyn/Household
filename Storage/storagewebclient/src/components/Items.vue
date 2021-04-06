@@ -61,7 +61,7 @@ export default {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #694c44;
+  background-color: rgb(103,71,54);
   color: white;
 }
 </style>

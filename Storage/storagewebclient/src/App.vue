@@ -1,12 +1,15 @@
 <template>
 <div class="container">
-  <Header @toggle-add-item="toggleAddItem" :showAddItem="showAddItem"/>
-  <div v-show="showAddItem">
-    <AddItem @add-item="addItem"/>
-  </div>  
+  <Header/>
   <Items 
     @use-item="useItem"
     :items="items"/>
+  <Button class="showAddItemButton"              
+    @clicked="showAddItem = !showAddItem"
+    :title="showAddItem ? 'Avbryt' : 'Legg til'" />
+  <div v-show="showAddItem">
+    <AddItem @add-item="addItem" :itemTypes="itemTypes"/>
+  </div>  
 </div>
 </template>
 
@@ -14,24 +17,24 @@
 import Header from './components/Header'
 import Items from './components/Items'
 import AddItem from './components/AddItem'
+import Button from './components/Button'
 
 export default {
   name: 'App',
   components: {  
     Header,
     Items,
-    AddItem
+    AddItem,
+    Button
   },
   data() {
     return {
       items: [],
+      itemTypes: [],
       showAddItem: false
     }
   },
   methods: {
-    toggleAddItem() {
-      this.showAddItem = !this.showAddItem
-    },
     addItem(item) {
       this.items = [...this.items, item]
       //Send add item to StorageWebapi
@@ -45,7 +48,19 @@ export default {
       //Send item used request to StorageWebApi
     },
     async fetchItems() {
-      const res =  await fetch('http://desktop-aaroeen:80/storage', {
+      const res =  await fetch(process.env.VUE_APP_API_ENDPOINT+'/storage', {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+      const data = await res.json()
+
+      return data
+    },
+    async fetchItemTypes() {
+      const res =  await fetch(process.env.VUE_APP_API_ENDPOINT+'/ItemTypes', {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -59,6 +74,7 @@ export default {
   },
   async created() {
     this.items = await this.fetchItems()
+    this.itemTypes = await this.fetchItemTypes()
   },
 }
 </script>
@@ -76,7 +92,7 @@ body {
 .container {
   margin: 10px auto;
   overflow: auto;
-  border: 1px solid steelblue;
+  border: 1px solid rgb(103,71,54);
   padding: 30px;
   border-radius: 5px;
 }
@@ -102,5 +118,8 @@ body {
 .btn-block {
   display: block;
   width: 100%;
+}
+.showAddItemButton{
+  float: right;
 }
 </style>
