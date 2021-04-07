@@ -32,7 +32,7 @@ namespace StorageWebApi.Controllers
                     {
                         Description = db.ItemTypes.First( i => i.Id == grp.Key).Description,
                         Amount = grp.Count(),
-                        ExpiredDates = grp.Select(i => i.ExpiredDate).ToArray()
+                        ExpiredDates = grp.Select(i => i.ExpiredDate).OrderBy(d => d).ToArray()
                     });  
         }
 
@@ -60,6 +60,22 @@ namespace StorageWebApi.Controllers
                         Location = arg.Location
                     }
                 );
+            await db.SaveChangesAsync();
+        }
+
+        [HttpPost]
+        public async Task UseItem(string description)
+        { 
+            var itemType = db.ItemTypes.ToArray().SingleOrDefault(i => i.Description == description);
+
+            if(itemType == default){
+                return;
+            }
+
+            db.StoredItems.Remove(
+                    db.StoredItems.ToArray().Where(i => i.ItemId == itemType.Id).OrderBy(i => i.ExpiredDate).First()
+                );
+                
             await db.SaveChangesAsync();
         }
     }
