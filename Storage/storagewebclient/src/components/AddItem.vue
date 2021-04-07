@@ -1,15 +1,19 @@
 <template>
   <form @submit="onSubmit" class="add-form">
     <div class="form-control">
-      <label>Beskrivelse</label>   
-      <ItemInputAutoComplete :items="itemTypes" v-model="description"/>
+      <label>Beskrivelse</label>
+      <ItemInputAutoComplete
+        ref="itemInputField"
+        :items="itemTypes"
+        @input-updated="updateDescription"
+      />
     </div>
     <div class="form-control">
       <label>Best før</label>
       <input
         type="date"
-        v-model="expirydate"
-        name="expirydate"
+        v-model="expiredDate"
+        name="expiredDate"
         placeholder="Legg til best før dato"
       />
     </div>
@@ -18,44 +22,61 @@
 </template>
 
 <script>
-import ItemInputAutoComplete from './ItemInputAutocomplete'
+import ItemInputAutoComplete from "./ItemInputAutocomplete";
 
 export default {
-  name: 'AddItem',
+  name: "AddItem",
   props: {
-    itemTypes : Array
+    itemTypes: Array,
   },
   data() {
     return {
-      description: '',
-      expirydate: '',
-    }
+      description: "",
+      expiredDate: "",
+    };
   },
-  components:{
-    ItemInputAutoComplete
+  components: {
+    ItemInputAutoComplete,
   },
   methods: {
+    updateDescription(description) {
+      this.description = description;
+    },
     onSubmit(e) {
-      e.preventDefault()
+      e.preventDefault();
       if (!this.description) {
-        alert('Legg til en beskrivelse av artikkel')
-        return
+        alert("Legg til en beskrivelse av artikkel");
+        return;
       }
-            if (!this.expirydate) {
-        alert('Legg til en best før dato')
-        return
+      if (!this.expiredDate) {
+        alert("Legg til en best før dato");
+        return;
       }
+
+      var itemType = this.itemTypes.find(
+        (i) => i.description == this.description
+      );
+      var itemTypeId = "00000000-0000-0000-0000-000000000000";
+
+      if(itemType !== undefined){
+        itemTypeId = itemType.id;
+      }
+
       const newItem = {
-        id: Math.floor(Math.random() * 100000),
+        itemTypeId: itemTypeId,
         description: this.description,
-        expirydate: this.expirydate
-      }
-      this.$emit('add-item', newItem)
-      this.description = ''
-      this.expirydate = ''
+        expiredDate: this.expiredDate,
+        addedDate: new Date(),
+        location: 0,
+      };
+
+      this.$emit("add-item", newItem);
+      this.$refs.itemInputField.inputText = "";
+      this.description = "";
+      this.expiredDate = "";
     },
   },
-}
+};
 </script>
 
 <style scoped>

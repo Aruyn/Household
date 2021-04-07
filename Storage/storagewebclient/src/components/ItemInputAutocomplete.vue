@@ -1,6 +1,11 @@
 <template>    
     <div class="autoCompleteContainer">     
-        <input type="text" class="inputField" autocomplete="off" v-model="inputText" @focus="modal = true" @blur="modal = false"/>
+        <input type="text" 
+               class="inputField" 
+               autocomplete="off" 
+               v-model="inputText" 
+               @focus="modal = true" 
+               @blur="modal = false"/>
         <div v-if="filteredItems && modal" class="filteredItems">
         <div v-for="item in filteredItems.slice(0,5)" :key="item.description" class="filteredItem">
             <li class="itemSuggestion" @mousedown="setItem(item)">{{item.description}}</li>
@@ -36,12 +41,14 @@ export default {
         },
         setItem(item) {
             this.inputText = item.description;
+            this.$emit('input-updated', this.inputText)
             this.modal = false;
         }
     },
     watch: {
         inputText() {
             this.filterItems();
+            this.$emit('input-updated', this.inputText)
         }
     }
 }

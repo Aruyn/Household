@@ -14,7 +14,7 @@
     <td>{{item.description}}</td>
     <td>{{item.amount}}</td> 
     <td>{{formatDate(item.expiredDates[0])}}</td>    
-    <td><Button title="Bruk" @click="$emit('use-item', this.id)"/> </td>
+    <td><Button title="Bruk" @click="$emit('use-item', item.description)"/> </td>
 </tr>
     </template>
     </tbody>
